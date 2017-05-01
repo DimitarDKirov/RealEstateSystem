@@ -1,19 +1,23 @@
 {
-  "name": "real estates app",
+  "name": "realestateapp",
   "version": "1.0.0",
-  "description": "##  App description",
-  "main": "index.js",
+  "description": "Real estate offers single page app",
+  "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Team Coconut",
-  "license": "MIT",
+  "keywords": [
+    "real",
+    "estate",
+    "navigo"
+  ],
+  "author": "team Cocount",
+  "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.13.3",
-    "cors": "^2.8.1",
-    "express": "^4.13.3",
-    "lodash": "^3.10.1",
-    "lowdb": "^0.10.2",
-    "underscore-db": "^0.9.0"
+    "bootstrap": "^3.3.7",
+    "handlebars": "^4.0.7",
+    "jquery": "^3.2.1",
+    "navigo": "^4.7.0",
+    "toastr": "^2.1.2"
   }
 }

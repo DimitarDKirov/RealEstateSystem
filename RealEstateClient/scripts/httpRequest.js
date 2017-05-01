@@ -1,7 +1,5 @@
-/* globals $ Promise */
-
-let requester = {
-    get(url) {
+let request = {
+    getTemplate(url) {
         let promise = new Promise((resolve, reject) => {
             $.ajax({
                 url,
@@ -21,11 +19,10 @@ let requester = {
                 headers,
                 method: "PUT",
                 contentType: "application/json",
-                data: JSON.stringify(body),
-                success(response) {
-                    resolve(response);
-                }
-            });
+                data: JSON.stringify(body)
+            })
+                .done(resolve)
+                .fail((er) => reject(er.responseJSON.result.err));
         });
         return promise;
     },
@@ -38,11 +35,10 @@ let requester = {
                 headers,
                 method: "POST",
                 contentType: "application/json",
-                data: JSON.stringify(body),
-                success(response) {
-                    resolve(response);
-                }
-            });
+                data: JSON.stringify(body)
+            })
+                .done(resolve)
+                .fail((er) => reject(er.responseJSON.result.err));
         });
         return promise;
     },
@@ -51,11 +47,10 @@ let requester = {
             $.ajax({
                 url,
                 method: "GET",
-                contentType: "application/json",
-                success(response) {
-                    resolve(response);
-                }
-            });
+                contentType: "application/json"
+            })
+                .done(resolve)
+                .fail(reject);
         });
         return promise;
     }
