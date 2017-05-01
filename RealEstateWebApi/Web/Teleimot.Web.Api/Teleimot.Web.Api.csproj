@@ -249,13 +249,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="public\index.html" />
+    <Content Include="index.html" />
     <Content Include="public\scripts\app.js" />
     <Content Include="public\scripts\controller.js" />
     <Content Include="public\scripts\data.js" />
     <Content Include="public\scripts\httpRequest.js" />
     <Content Include="public\scripts\templateLoader.js" />
     <Content Include="public\styles\main.css" />
+    <Content Include="public\templates\home.html" />
+    <Content Include="public\templates\userLogin.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
