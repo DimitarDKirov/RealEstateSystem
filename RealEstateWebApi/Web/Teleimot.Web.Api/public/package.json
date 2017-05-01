@@ -1,0 +1,23 @@
+{
+  "name": "realestateapp",
+  "version": "1.0.0",
+  "description": "Real estate offers single page app",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "real",
+    "estate",
+    "navigo"
+  ],
+  "author": "team Cocount",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "handlebars": "^4.0.7",
+    "jquery": "^3.2.1",
+    "navigo": "^4.7.0",
+    "toastr": "^2.1.2"
+  }
+}
