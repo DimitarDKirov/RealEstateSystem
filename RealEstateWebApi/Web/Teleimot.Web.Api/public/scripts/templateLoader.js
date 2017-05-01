@@ -1,6 +1,6 @@
 function loadTemplate(name) {
     return new Promise(function(resolve, reject) {
-        $.getTemplate('/templates/' + name + '.handlebars')
+        $.get('templates/' + name + '.html')
             .done((file) => {
                 let template = Handlebars.compile(file);
                 resolve(template);
