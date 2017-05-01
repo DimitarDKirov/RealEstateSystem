@@ -5,6 +5,12 @@
 
     public static class Services
     {
-        public static ICommentsService CommentsService => new CommentsService(Repositories.CommentsRepository, Repositories.RealEstatessRepository);
+        public static ICommentsService CommentsService
+        {
+            get
+            {
+                return new CommentsService(Repositories.CommentsRepository, Repositories.RealEstatessRepository);
+            }
+        }
     }
 }
