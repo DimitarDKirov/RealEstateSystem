@@ -5,6 +5,7 @@ using System.Web.Http;
 using Ninject.Web.Common.OwinHost;
 using Ninject.Web.WebApi.OwinHost;
 using Teleimot.Common.Constants;
+using Microsoft.Owin.Cors;
 
 [assembly: OwinStartup(typeof(Teleimot.Web.Api.Startup))]
 
@@ -14,6 +15,7 @@ namespace Teleimot.Web.Api
     {
         public void Configuration(IAppBuilder app)
         {
+            app.UseCors(CorsOptions.AllowAll);
             AutoMapperConfig.RegisterMappings(Assemblies.WebApi);
 
             ConfigureAuth(app);

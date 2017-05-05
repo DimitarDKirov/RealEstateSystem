@@ -26,20 +26,20 @@ let data = {
         );
     },
     login(userData) {
-        var result = request.putJSON('api/users/auth/', userData)
-            .then(usrDetails => {
-                if (usrDetails.result.err) {
-                    return Promise.reject(usrDetails.result.err);
-                }
-
-                localStorage.setItem("username", usrDetails.result.username);
-                localStorage.setItem("authKey", usrDetails.result.authKey);
+        userData.grant_type = 'password';
+        var result = request.postAuth('token', userData)
+            .then(userDetails => {
+                localStorage.setItem('username', userDetails.userName);
+                localStorage.setItem('token', userDetails.access_token);
+            })
+            .catch(error=> {
+                return Promise.reject(error.responseJSON ? error.responseJSON.error_description : error.statusText);
             });
 
         return result;
     },
     register(userData) {
-        return request.postJSON('api/users', userData);
+        return request.postAuth('api/account/register', userData);
     },
     loggedInUsername() {
         return Promise.resolve()
@@ -51,7 +51,7 @@ let data = {
         return Promise.resolve()
             .then(() => {
                 localStorage.removeItem("username");
-                localStorage.removeItem("authKey");
+                localStorage.removeItem("token");
             });
     }
 }

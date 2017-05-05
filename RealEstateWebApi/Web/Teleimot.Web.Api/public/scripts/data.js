@@ -26,20 +26,20 @@ let data = {
         );
     },
     login(userData) {
-        userData.grant_type = "password";
+        userData.grant_type = 'password';
         var result = request.postAuth('token', userData)
             .then(userDetails => {
-                localStorage.setItem("username", userDetails.userName);
-                localStorage.setItem("token", userDetails.access_token);
+                localStorage.setItem('username', userDetails.userName);
+                localStorage.setItem('token', userDetails.access_token);
             })
             .catch(error=> {
-                return Promise.reject(error.responseJSON.error_description);
+                return Promise.reject(error.responseJSON ? error.responseJSON.error_description : error.statusText);
             });
 
         return result;
     },
     register(userData) {
-        return request.postJSON('api/users', userData);
+        return request.postAuth('api/account/register', userData);
     },
     loggedInUsername() {
         return Promise.resolve()
