@@ -24,24 +24,24 @@ let request = {
                 .done(resolve)
                 .fail((er) => reject(er.responseJSON.result.err));
         });
-        return promise;
-    },
-    postJSON(url, body, options = {}) {
-        let promise = new Promise((resolve, reject) => {
-            var headers = options.headers || {};
-
-            $.ajax({
-                url,
-                headers,
-                method: "POST",
-                contentType: "application/json",
-                data: JSON.stringify(body)
-            })
-                .done(resolve)
-                .fail((er) => reject(er.responseJSON.result.err));
-        });
-        return promise;
-    },
+return promise;
+},
+postJSON(url, body, options = {}) {
+    let promise = new Promise((resolve, reject) => {
+        let headers = options.headers || {};
+        let contentType=options.contentType||"application/json";
+        $.ajax({
+            url,
+            headers,
+            method: "POST",
+            contentType: contentType,
+            data: JSON.stringify(body)
+        })
+            .done(resolve)
+            .fail(reject);
+    });
+    return promise;
+},
     getJSON(url) {
         let promise = new Promise((resolve, reject) => {
             $.ajax({

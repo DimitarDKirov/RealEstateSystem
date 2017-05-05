@@ -26,14 +26,17 @@ let data = {
         );
     },
     login(userData) {
-        var result = request.putJSON('api/users/auth/', userData)
-            .then(usrDetails => {
+        userData.grant_type = "password";
+        var result = request.postJSON('token', $.param(userData), { contentType: "application/x-www-form-urlencoded" })
+            .then(userDetails => {
+                console.log('then');
+                console.log(userDetails);
                 if (usrDetails.result.err) {
                     return Promise.reject(usrDetails.result.err);
                 }
 
-                localStorage.setItem("username", usrDetails.result.username);
-                localStorage.setItem("authKey", usrDetails.result.authKey);
+                localStorage.setItem("username", usrDetails.username);
+                localStorage.setItem("token", usrDetails.access_token);
             });
 
         return result;

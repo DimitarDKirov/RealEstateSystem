@@ -21,8 +21,8 @@ let controller = {
 
                 $("#btn-login").on("click", (ev) => {
                     let userData = {
-                        username: $("#username").val(),
-                        password: $("#password").val()
+                        Username: $("#tb-username").val(),
+                        Password: $("#tb-password").val()
                     };
 
                     data.login(userData)
