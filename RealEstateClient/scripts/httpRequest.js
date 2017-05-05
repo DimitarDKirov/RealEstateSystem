@@ -1,4 +1,5 @@
 const serverAddress = 'http://realestatessystem.apphb.com/';
+//const serverAddress='http://localhost:15334/';
 let request = {
     getTemplate(url) {
         let promise = new Promise((resolve, reject) => {

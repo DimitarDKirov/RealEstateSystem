@@ -21,7 +21,7 @@ namespace Teleimot.Web.Api
             ConfigureAuth(app);
 
             var httpConfig = new HttpConfiguration();
-            
+
             WebApiConfig.Register(httpConfig);
 
             httpConfig.EnsureInitialized();
