@@ -16,16 +16,16 @@
             server = MyWebApi.Server().Starts<Startup>();
         }
 
-        [TestMethod]
-        public void CommentsShouldReturnUnauthorizedWithNoAuthenticatedUser()
-        {
+        //[TestMethod]
+        //public void CommentsShouldReturnUnauthorizedWithNoAuthenticatedUser()
+        //{
             //server
             //    .WithHttpRequestMessage(req => req
             //        .WithMethod(HttpMethod.Get)
             //        .WithRequestUri("api/Comments/ByUser/TestUser"))
             //    .ShouldReturnHttpResponseMessage()
             //    .WithStatusCode(HttpStatusCode.Unauthorized);
-        }
+        //}
 
         [ClassCleanup]
         public static void Clean()
