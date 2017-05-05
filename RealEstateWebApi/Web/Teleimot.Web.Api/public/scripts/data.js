@@ -27,16 +27,13 @@ let data = {
     },
     login(userData) {
         userData.grant_type = "password";
-        var result = request.postJSON('token', $.param(userData), { contentType: "application/x-www-form-urlencoded" })
+        var result = request.postAuth('token', userData)
             .then(userDetails => {
-                console.log('then');
-                console.log(userDetails);
-                if (usrDetails.result.err) {
-                    return Promise.reject(usrDetails.result.err);
-                }
-
-                localStorage.setItem("username", usrDetails.username);
-                localStorage.setItem("token", usrDetails.access_token);
+                localStorage.setItem("username", userDetails.userName);
+                localStorage.setItem("token", userDetails.access_token);
+            })
+            .catch(error=> {
+                return Promise.reject(error.responseJSON.error_description);
             });
 
         return result;
@@ -54,7 +51,7 @@ let data = {
         return Promise.resolve()
             .then(() => {
                 localStorage.removeItem("username");
-                localStorage.removeItem("authKey");
+                localStorage.removeItem("token");
             });
     }
 }

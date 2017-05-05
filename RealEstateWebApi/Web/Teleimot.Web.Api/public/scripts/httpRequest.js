@@ -29,13 +29,25 @@ return promise;
 postJSON(url, body, options = {}) {
     let promise = new Promise((resolve, reject) => {
         let headers = options.headers || {};
-        let contentType=options.contentType||"application/json";
         $.ajax({
             url,
             headers,
             method: "POST",
-            contentType: contentType,
+            contentType: "application/json",
             data: JSON.stringify(body)
+        })
+            .done(resolve)
+            .fail(reject);
+    });
+    return promise;
+},
+postAuth(url, body) {
+    let promise = new Promise((resolve, reject) => {
+        $.ajax({
+            url,
+            method: "POST",
+            contentType: "application/x-www-form-urlencoded",
+            data: $.param(body)
         })
             .done(resolve)
             .fail(reject);

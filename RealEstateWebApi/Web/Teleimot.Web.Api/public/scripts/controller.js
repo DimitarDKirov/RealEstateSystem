@@ -21,8 +21,8 @@ let controller = {
 
                 $("#btn-login").on("click", (ev) => {
                     let userData = {
-                        Username: $("#tb-username").val(),
-                        Password: $("#tb-password").val()
+                        username: $("#tb-username").val(),
+                        password: $("#tb-password").val()
                     };
 
                     data.login(userData)
@@ -30,7 +30,9 @@ let controller = {
                             userLoggedIn();
                             router.navigate('/');
                         })
-                        .catch(console.log);
+                        .catch(error=> {
+                            toastr.error(error);
+                        });
 
                     ev.preventDefault();
                     return false;
@@ -57,6 +59,21 @@ let controller = {
             });
     },
     logout() {
-
+        data.logout()
+        .then(() => {
+            $('.visible-loggedout').show();
+            $('.visible-loggedin').hide();
+        });
     }
 };
+
+function userLoggedIn() {
+    $('.visible-loggedout').hide();
+    $('.visible-loggedin').show();
+    data.loggedInUsername()
+        .then(username => {
+            $('#logged-user')
+                .text(username)
+                .attr("href", href = "#/users/" + username);
+        });
+}
