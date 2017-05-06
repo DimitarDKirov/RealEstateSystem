@@ -1,3 +1,6 @@
+import {data} from 'data';
+import {loadTemplate} from 'templateLoader';
+
 let controller = {
     home() {
         var realEstates;
@@ -28,7 +31,7 @@ let controller = {
                     data.login(userData)
                         .then((userDetails) => {
                             userLoggedIn();
-                            router.navigate('/');
+                            window.router.navigate('/');
                         })
                         .catch(error=> {
                             toastr.error(error);
@@ -58,11 +61,14 @@ let controller = {
                                 })
                                 .then((userDetails) => {
                                     userLoggedIn();
-                                    router.navigate('/');
+                                    window.router.navigate('/');
                                 })
                                 .catch(error=> {
-                                    console.log(error.responseJSON.ModelState);
-                                    //toastr.error(error.responseText['message']);
+                                    for(let modelStateMessages of Object.values(error.responseJSON.ModelState)) {
+                                        for(let message of modelStateMessages) {
+                                            toastr.error(message);
+                                        }
+                                    }
                                 });
                             ev.preventDefault();
                             return false;
@@ -88,3 +94,5 @@ function userLoggedIn() {
                 .attr("href", href = "#/users/" + username);
         });
 }
+
+export {controller};

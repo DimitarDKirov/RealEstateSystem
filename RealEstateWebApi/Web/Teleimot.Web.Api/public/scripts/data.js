@@ -1,5 +1,5 @@
 //const HTTP_HEADER_KEY = "x-auth-key";
-
+import {httpRequest as request} from 'httpRequester';
 let data = {
     realEstates() {
         //return request.getJSON('api/RealEstates/');
@@ -55,3 +55,5 @@ let data = {
             });
     }
 }
+
+export {data};

@@ -1,4 +1,4 @@
-let request = {
+let httpRequest = {
     getTemplate(url) {
         let promise = new Promise((resolve, reject) => {
             $.ajax({
@@ -67,3 +67,5 @@ postAuth(url, body) {
         return promise;
     }
 };
+
+export {httpRequest};

@@ -1,6 +1,6 @@
-function loadTemplate(name) {
+export function loadTemplate(name) {
     return new Promise(function(resolve, reject) {
-        $.get('/public/templates/' + name + '.html')
+        $.get('./public/templates/' + name + '.html')
             .done((file) => {
                 let template = Handlebars.compile(file);
                 resolve(template);
@@ -8,3 +8,5 @@ function loadTemplate(name) {
             .fail(reject);
     });
 }
+
+
