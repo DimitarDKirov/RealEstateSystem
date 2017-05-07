@@ -1,3 +1,7 @@
 body .visible-loggedin {
     display: none;
 }
+
+.form-horizontal {
+    margin: 1%;
+}

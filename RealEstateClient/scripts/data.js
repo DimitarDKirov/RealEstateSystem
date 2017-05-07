@@ -1,29 +1,26 @@
 //const HTTP_HEADER_KEY = "x-auth-key";
+import {httpRequest as request} from 'httpRequester';
+
+let realEstateTypes;
 
 let data = {
     realEstates() {
-        //return request.getJSON('api/RealEstates/');
-        return Promise.resolve({
-            result: [
-                {
-                    "Id": 2,
-                    "Title": "My house is for sale!",
-                    "SellingPrice": 28000,
-                    "RentingPrice": null,
-                    "CanBeSold": true,
-                    "CanBeRented": false
-                },
-                {
-                    "Id": 1,
-                    "Title": "Some very interesting office",
-                    "SellingPrice": 120000,
-                    "RentingPrice": 500,
-                    "CanBeSold": true,
-                    "CanBeRented": true
-                }
-            ]
+        return request.getJSON('api/realestates/', getAuthHeader());
+    },
+    realEstateTypes(){
+        if(typeof realEstateTypes ==='undefined'){
+            return request.getJSON('api/realestatetypes/getall')
+            .then(types=>{
+                realEstateTypes=types;
+                return types;
+            });
+        }else{
+            return Promise.resolve(realEstateTypes);
         }
-        );
+    },
+    addEstate(estateOffer){
+        let options=getAuthHeader();
+        return request.postJSON('api/realestates', estateOffer, options);
     },
     login(userData) {
         userData.grant_type = 'password';
@@ -48,10 +45,19 @@ let data = {
             });
     },
     logout() {
-        return Promise.resolve()
-            .then(() => {
-                localStorage.removeItem("username");
-                localStorage.removeItem("token");
-            });
+        let header=getAuthHeader();
+        localStorage.removeItem("username");
+        localStorage.removeItem("token");
+        return request.postJSON('api/account/logout', {}, header);
     }
+};
+
+function getAuthHeader(){
+    return {
+        headers:{
+            Authorization: 'Bearer '+ localStorage.getItem('token')
+        }
+    };
 }
+
+export {data};

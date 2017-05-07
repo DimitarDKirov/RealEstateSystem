@@ -54,10 +54,12 @@ postAuth(url, body) {
     });
     return promise;
 },
-    getJSON(url) {
+    getJSON(url,  options = {}) {
+        let headers = options.headers || {};
         let promise = new Promise((resolve, reject) => {
             $.ajax({
                 url,
+                headers,
                 method: "GET",
                 contentType: "application/json"
             })

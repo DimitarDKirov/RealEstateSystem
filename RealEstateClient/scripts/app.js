@@ -1,3 +1,6 @@
+//import {Navigo} from 'navigo';
+import {controller} from 'controller';
+
 let router = new Navigo(null, true);
 
 router
@@ -9,7 +12,10 @@ router
     .on("login", controller.login)
     .on("register", controller.register)
     .on("logout", controller.logout)
+    .on("estate/add", controller.addEstate)
     .on('*', ()=>router.navigate("/home"))
     .resolve();
+
+window.router=router;
 
 

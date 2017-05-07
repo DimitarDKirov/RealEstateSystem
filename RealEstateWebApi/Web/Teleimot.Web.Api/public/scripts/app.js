@@ -12,6 +12,7 @@ router
     .on("login", controller.login)
     .on("register", controller.register)
     .on("logout", controller.logout)
+    .on("estate/add", controller.addEstate)
     .on('*', ()=>router.navigate("/home"))
     .resolve();
 

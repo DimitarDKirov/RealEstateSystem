@@ -16,6 +16,41 @@ let controller = {
             })
             .catch(console.log);
     },
+    addEstate(){
+        let realEstateTypes;
+        data.realEstateTypes()
+        .then(types=>{
+            realEstateTypes=types;
+            return loadTemplate('addEstate');
+        })
+        .then(template=>{
+            var html=template(realEstateTypes);
+            $('#content').html(html);
+
+            $('#btn-create').on('click', (ev)=>{
+                let estateOffer={
+                    title: $('#tb-title').val(),
+                    description: $('#tb-description').val(),
+                    address: $('#tb-address').val(),
+                    contact: $('#tb-contact').val(),
+                    constructionYear: $('#tb-year').val()||0,
+                    sellingPrice: $('#tb-selling-price').val(),
+                    rentingPrice: $('#tb-renting-price').val(),
+                    type: $('#sel-type').val()
+                };
+
+                data.addEstate(estateOffer)
+                .then(window.router.navigate('/'))
+                .catch(error=>{
+                    console.log(error);
+                    toastr.error(error.responseJSON.Message);
+                });
+
+                ev.preventDefault();
+                return false;
+            });
+        });
+    },
     login() {
         loadTemplate('userLogin')
             .then((template) => {
@@ -29,13 +64,13 @@ let controller = {
                     };
 
                     data.login(userData)
-                        .then((userDetails) => {
-                            userLoggedIn();
-                            window.router.navigate('/');
-                        })
-                        .catch(error=> {
-                            toastr.error(error);
-                        });
+                  .then((userDetails) => {
+                      userLoggedIn();
+                      window.router.navigate('/');
+                  })
+                  .catch(error=> {
+                      toastr.error(error);
+                  });
 
                     ev.preventDefault();
                     return false;
@@ -91,7 +126,7 @@ function userLoggedIn() {
         .then(username => {
             $('#logged-user')
                 .text(username)
-                .attr("href", href = "#/users/" + username);
+                .attr("href", "#/users/" + username);
         });
 }
 

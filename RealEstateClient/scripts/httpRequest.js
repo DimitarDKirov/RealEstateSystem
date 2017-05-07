@@ -1,10 +1,11 @@
-const serverAddress = 'http://realestatessystem.apphb.com/';
-//const serverAddress='http://localhost:15334/';
-let request = {
+const serverUrl = 'http://localhost:15334/';
+//const serverUrl = 'http://realestatessystem.apphb.com/';
+
+let httpRequest = {
     getTemplate(url) {
         let promise = new Promise((resolve, reject) => {
             $.ajax({
-                url,
+                url: serverUrl + url,
                 method: "GET",
                 success(response) {
                     resolve(response);
@@ -17,7 +18,7 @@ let request = {
         let promise = new Promise((resolve, reject) => {
             var headers = options.headers || {};
             $.ajax({
-                url: serverAddress + url,
+                url: serverUrl + url,
                 headers,
                 method: "PUT",
                 contentType: "application/json",
@@ -32,7 +33,7 @@ let request = {
         let promise = new Promise((resolve, reject) => {
             let headers = options.headers || {};
             $.ajax({
-                url: serverAddress + url,
+                url: serverUrl + url,
                 headers,
                 method: "POST",
                 contentType: "application/json",
@@ -46,7 +47,7 @@ let request = {
     postAuth(url, body) {
         let promise = new Promise((resolve, reject) => {
             $.ajax({
-                url: serverAddress + url,
+                url: serverUrl + url,
                 method: "POST",
                 contentType: "application/x-www-form-urlencoded",
                 data: $.param(body)
@@ -56,10 +57,12 @@ let request = {
         });
         return promise;
     },
-    getJSON(url) {
+    getJSON(url, options = {}) {
+        let headers = options.headers || {};
         let promise = new Promise((resolve, reject) => {
             $.ajax({
-                url: serverAddress + url,
+                url: serverUrl + url,
+                headers,
                 method: "GET",
                 contentType: "application/json"
             })
@@ -69,3 +72,5 @@ let request = {
         return promise;
     }
 };
+
+export { httpRequest };

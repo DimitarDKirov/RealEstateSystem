@@ -9,13 +9,13 @@
     public class RealEstateRequestModel : IMapFrom<RealEstate>, IValidatableObject
     {
         [Required]
-        [MinLength(RealEstateConstants.TitleMinLength)]
-        [MaxLength(RealEstateConstants.TitleMaxLength)]
+        [MinLength(RealEstateConstants.TitleMinLength, ErrorMessage = RealEstateConstants.TitleLengthMessage)]
+        [MaxLength(RealEstateConstants.TitleMaxLength, ErrorMessage = RealEstateConstants.TitleLengthMessage)]
         public string Title { get; set; }
 
         [Required]
-        [MinLength(RealEstateConstants.DescriptionMinLength)]
-        [MaxLength(RealEstateConstants.DescriptionMaxLength)]
+        [MinLength(RealEstateConstants.DescriptionMinLength, ErrorMessage = RealEstateConstants.DescriptionLengthMessage)]
+        [MaxLength(RealEstateConstants.DescriptionMaxLength, ErrorMessage = RealEstateConstants.DescriptionLengthMessage)]
         public string Description { get; set; }
 
         [Required]
@@ -23,7 +23,7 @@
 
         public string Contact { get; set; }
 
-        [Range(RealEstateConstants.MinConstructionYear, int.MaxValue)]
+        [Range(RealEstateConstants.MinConstructionYear, int.MaxValue, ErrorMessage = RealEstateConstants.ContructionYearMessage)]
         public int ConstructionYear { get; set; }
 
         public decimal? SellingPrice { get; set; }

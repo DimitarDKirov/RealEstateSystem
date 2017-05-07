@@ -225,14 +225,15 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\RealEstatesController.cs" />
+    <Compile Include="Controllers\RealEstateTypesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Infrastructure\Mappings\IHaveCustomMappings.cs" />
-    <Compile Include="Infrastructure\Mappings\IMapFrom.cs" />
-    <Compile Include="Infrastructure\Validation\ValidateModelAttribute.cs" />
-    <Compile Include="Infrastructure\Validation\ValidateTakeAttribute.cs" />
+    <Compile Include="Controllers\Infrastructure\Mappings\IHaveCustomMappings.cs" />
+    <Compile Include="Controllers\Infrastructure\Mappings\IMapFrom.cs" />
+    <Compile Include="Controllers\Infrastructure\Validation\ValidateModelAttribute.cs" />
+    <Compile Include="Controllers\Infrastructure\Validation\ValidateTakeAttribute.cs" />
     <Compile Include="Models\Account\ExternalLoginViewModel.cs" />
     <Compile Include="Models\Account\ManageInfoViewModel.cs" />
     <Compile Include="Models\Account\SetPasswordBindingModel.cs" />
@@ -252,8 +253,8 @@
     <Compile Include="Models\Users\RatingRequestModel.cs" />
     <Compile Include="Models\Users\UserResponseModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Infrastructure\Providers\ApplicationOAuthProvider.cs" />
-    <Compile Include="Infrastructure\Results\ChallengeResult.cs" />
+    <Compile Include="Controllers\Infrastructure\Providers\ApplicationOAuthProvider.cs" />
+    <Compile Include="Controllers\Infrastructure\Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -267,6 +268,7 @@
     <Content Include="public\scripts\templateLoader.js" />
     <Content Include="public\scripts\userCredentialsValidator.js" />
     <Content Include="public\styles\main.css" />
+    <Content Include="public\templates\addEstate.html" />
     <Content Include="public\templates\home.html" />
     <Content Include="public\templates\userRegistration.html" />
     <Content Include="public\templates\userLogin.html" />
