@@ -1,5 +1,5 @@
-const serverUrl = 'http://localhost:15334/';
-//const serverUrl = 'http://realestatessystem.apphb.com/';
+//const serverUrl = 'http://localhost:15334/';
+const serverUrl = 'http://realestatessystem.apphb.com/';
 
 let httpRequest = {
     getTemplate(url) {
