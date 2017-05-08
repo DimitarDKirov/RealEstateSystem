@@ -1,5 +1,5 @@
 //import {Navigo} from 'navigo';
-import {controller} from 'controller';
+import { controller } from 'controller';
 
 let router = new Navigo(null, true);
 
@@ -13,9 +13,10 @@ router
     .on("register", controller.register)
     .on("logout", controller.logout)
     .on("estate/add", controller.addEstate)
-    .on('*', ()=>router.navigate("/home"))
+    .on("estate/details/:id", (params) => controller.getEstateById(params.id))
+    .on('*', () => router.navigate("/home"))
     .resolve();
 
-window.router=router;
+window.router = router;
 
 
