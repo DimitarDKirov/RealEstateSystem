@@ -26,6 +26,14 @@ let data = {
         let options=getAuthHeader();
         return request.postJSON('api/realestates', estateOffer, options);
     },
+    getCommentsByEstateId(realEstateId){
+        let options=getAuthHeader();
+        return request.getJSON('api/comments/'+realEstateId, options);
+    },
+    addCommnet(comment){
+        let options=getAuthHeader();
+        return request.postJSON('api/comments', comment, options);
+    },
     login(userData) {
         userData.grant_type = 'password';
         var result = request.postAuth('token', userData)

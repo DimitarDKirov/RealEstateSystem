@@ -14,6 +14,7 @@ router
     .on("logout", controller.logout)
     .on("estate/add", controller.addEstate)
     .on("estate/details/:id", (params)=>controller.getEstateById(params.id))
+    .on("estate/comments/:id", (params)=>controller.commentsByEstateId(params.id))
     .on('*', ()=>router.navigate("/home"))
     .resolve();
 

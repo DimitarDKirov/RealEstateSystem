@@ -49,7 +49,8 @@ let controller = {
                 ev.preventDefault();
                 return false;
             });
-        });
+        })
+        .catch(console.log);
     },
     getEstateById(id){
         var realEstateDetails;
@@ -65,6 +66,43 @@ let controller = {
             console.log(error);
             toastr.error(error.responseJSON.Message);
         });
+    },
+    commentsByEstateId(realEstateId){
+        var comments;
+        data.getCommentsByEstateId(realEstateId)
+        .then(com=>{
+            comments=com;
+            return loadTemplate('commentsSection')
+        })
+        .then(template=>{
+            var html=template();
+            $('#content').html(html);
+
+            $('#btn-add-comment').on('click', (ev)=>{
+                let comment={
+                    realestateid:realEstateId,
+                    content:$('#comment-content').val()
+                };
+
+                data.addCommnet(comment)
+                .then(newComment=>{
+                    comments.push(newComment);
+                    var newHtml=template(comments);
+                    $('#content').html(html);
+                })
+                .catch(console.log);
+
+                ev.preventDefault();
+                return false;
+            });
+
+            return loadTemplate('comments');
+        })
+        .then(template=>{
+            var html=template(comments);
+            $('#comments').html(html);
+        })
+        .catch(console.log);
     },
     login() {
         loadTemplate('userLogin')
