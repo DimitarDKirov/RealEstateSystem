@@ -51,6 +51,11 @@
                     .FirstOrDefault();
             }
 
+            if (result == null)
+            {
+                return this.BadRequest("Real estate with given Id could not be found");
+            }
+
             return this.Ok(result);
         }
 

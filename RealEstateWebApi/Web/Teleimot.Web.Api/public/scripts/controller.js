@@ -51,6 +51,21 @@ let controller = {
             });
         });
     },
+    getEstateById(id){
+        var realEstateDetails;
+        data.getEstateById(id)
+        .then(details=>{
+            return loadTemplate('addEstate');
+        })
+        .then(template=>{
+            var html=template(realEstateDetails);
+            $('#content').html(html);
+        })
+        .catch(error=>{
+            console.log(error);
+            toastr.error(error.responseJSON.Message);
+        });
+    },
     login() {
         loadTemplate('userLogin')
             .then((template) => {

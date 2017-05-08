@@ -18,6 +18,10 @@ let data = {
             return Promise.resolve(realEstateTypes);
         }
     },
+    getEstateById(id){
+        let options=getAuthHeader();
+        return request.getJSON('api/realestates/'+id, options);
+    },
     addEstate(estateOffer){
         let options=getAuthHeader();
         return request.postJSON('api/realestates', estateOffer, options);

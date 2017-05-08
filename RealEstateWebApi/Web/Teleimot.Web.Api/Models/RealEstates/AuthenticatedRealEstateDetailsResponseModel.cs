@@ -11,14 +11,15 @@
     {
         public string Contact { get; set; }
 
-        public IEnumerable<CommentResponseModel> Comments { get; set; } 
+        public IEnumerable<CommentResponseModel> Comments { get; set; }
 
         public override void CreateMappings(IConfiguration configuration)
         {
             base.CreateMappings(configuration);
 
             configuration.CreateMap<RealEstate, AuthenticatedRealEstateDetailsResponseModel>()
-                .ForMember(r => r.Comments, opts => opts.MapFrom(r => r.Comments.OrderBy(c => c.CreatedOn).Take(CommentConstants.DefaultCommentTake)));
+                .ForMember(r => r.Comments, opts => opts.MapFrom(r => r.Comments.OrderBy(c => c.CreatedOn).Take(CommentConstants.DefaultCommentTake)))
+                .ForMember(m => m.RealEstateType, opts => opts.MapFrom(r => r.Type.ToString()));
         }
     }
 }
