@@ -197,3 +197,6 @@ FakesAssemblies/
 
 # WebStorm folder
 .idea/
+Ivan/addEstate.handlebars
+Ivan/allEstates.hanlebars
+Ivan/main.css

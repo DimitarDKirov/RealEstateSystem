@@ -16,6 +16,28 @@ let controller = {
             })
             .catch(console.log);
     },
+    allEstates(){
+        var templateOffers;
+        loadTemplate('allEstatesCommon')
+            .then(template=>{
+                var html = template();
+                $('#content').html(html);
+
+                $('#btn-more').on('click', ev=>{
+                    loadNextEstates(templateOffers);
+                    
+                    ev.preventDefault();
+                    return false;
+                });
+
+                return loadTemplate('allEstates');
+            })
+            .then(template => {
+                templateOffers=template;
+                return loadNextEstates(template);
+            })
+            .catch(console.log);
+    },
     addEstate(){
         let realEstateTypes;
         data.realEstateTypes()
@@ -53,44 +75,40 @@ let controller = {
         .catch(console.log);
     },
     getEstateById(id){
-        var realEstateDetails;
+        let realEstateDetails;
+        let commentsTemplate;
         data.getEstateById(id)
         .then(details=>{
-            return loadTemplate('addEstate');
+            realEstateDetails=details;
+            realEstateDetails.dateAdded=new Date(details.CreatedOn).toLocaleDateString();
+            realEstateDetails.Comments.forEach(comment=>{
+                comment.dateAdded=new Date(comment.CreatedOn).toLocaleString();
+            });
+            return  data.loggedInUsername();
+        })
+        .then(username=>{
+            realEstateDetails.username=username;
+            return loadTemplate('estateDetails');
         })
         .then(template=>{
-            var html=template(realEstateDetails);
-            $('#content').html(html);
-        })
-        .catch(error=>{
-            console.log(error);
-            toastr.error(error.responseJSON.Message);
-        });
-    },
-    commentsByEstateId(realEstateId){
-        var comments;
-        data.getCommentsByEstateId(realEstateId)
-        .then(com=>{
-            comments=com;
-            return loadTemplate('commentsSection')
-        })
-        .then(template=>{
-            var html=template();
+            let html=template(realEstateDetails);
             $('#content').html(html);
 
             $('#btn-add-comment').on('click', (ev)=>{
                 let comment={
-                    realestateid:realEstateId,
+                    realestateid:realEstateDetails.Id,
                     content:$('#comment-content').val()
                 };
 
                 data.addCommnet(comment)
                 .then(newComment=>{
-                    comments.push(newComment);
-                    var newHtml=template(comments);
-                    $('#content').html(html);
+                    let html=commentsTemplate([newComment]);
+                    $('#comments').append(html);
                 })
-                .catch(console.log);
+                .catch(error=>{
+                    console.log(error);
+                    toastr.error(error.responseJSON.Message);
+                });
 
                 ev.preventDefault();
                 return false;
@@ -98,12 +116,53 @@ let controller = {
 
             return loadTemplate('comments');
         })
-        .then(template=>{
-            var html=template(comments);
-            $('#comments').html(html);
-        })
-        .catch(console.log);
+          .then(template=>{
+              commentsTemplate=template;
+              var html=template(realEstateDetails.Comments);
+              $('#comments').html(html);
+          })
+        .catch(error=>{
+            console.log(error);
+            toastr.error(error.responseJSON.Message);
+        });
     },
+    //commentsByEstateId(realEstateId){
+    //    var comments;
+    //    data.getCommentsByEstateId(realEstateId)
+    //    .then(com=>{
+    //        comments=com;
+    //        return loadTemplate('commentsSection')
+    //    })
+    //    .then(template=>{
+    //        var html=template();
+    //        $('#content').html(html);
+
+    //        $('#btn-add-comment').on('click', (ev)=>{
+    //            let comment={
+    //                realestateid:realEstateId,
+    //                content:$('#comment-content').val()
+    //            };
+
+    //            data.addCommnet(comment)
+    //            .then(newComment=>{
+    //                comments.push(newComment);
+    //                var newHtml=template(comments);
+    //                $('#content').html(html);
+    //            })
+    //            .catch(console.log);
+
+    //            ev.preventDefault();
+    //            return false;
+    //        });
+
+    //        return loadTemplate('comments');
+    //    })
+    //    .then(template=>{
+    //        var html=template(comments);
+    //        $('#comments').html(html);
+    //    })
+    //    .catch(console.log);
+    //},
     login() {
         loadTemplate('userLogin')
             .then((template) => {
@@ -164,11 +223,9 @@ let controller = {
                     });
     },
     logout() {
-        data.logout()
-        .then(() => {
-            $('.visible-loggedout').show();
-            $('.visible-loggedin').hide();
-        });
+        data.logout();
+        $('.visible-loggedout').show();
+        $('.visible-loggedin').hide();
     }
 };
 
@@ -181,6 +238,20 @@ function userLoggedIn() {
                 .text(username)
                 .attr("href", "#/users/" + username);
         });
+}
+
+function loadNextEstates(template){
+    let $offersContainer=$('#offers');
+    let page=$offersContainer.attr('page-number')|0;
+    return data.realEstates(page*10)
+    .then(estates => {
+        var html = template(estates);
+        $('#offers').append(html);
+        $offersContainer.attr('page-number', page+1);
+        if(estates.length<10){
+            $('#btn-more').hide();
+        }
+    });
 }
 
 export {controller};

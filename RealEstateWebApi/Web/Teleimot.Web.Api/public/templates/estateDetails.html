@@ -1,0 +1,39 @@
+﻿<div class="col-sm-offset-1">
+    <h3>{{Title}}</h3>
+    <p><strong>Added: </strong>{{dateAdded}}</p>
+    <p>
+        <strong>Type: </strong> {{RealEstateType}}
+    </p>
+    <p>
+        <strong>Built: </strong> {{ConstructionYear}}
+    </p>
+    <p><strong>Address:</strong>{{Address}}</p>
+
+    {{#if CanBeSold}} <p>
+        Sell:   <strong>{{SellingPrice}} &euro;</strong>
+    </p>
+    {{/if}}
+    {{#if CanBeRented}} <p>
+        Rent: <strong>{{RentingPrice}} &euro;</strong>
+    </p>{{/if}}
+
+    {{#if Contact}}
+    <p>
+        <strong>Contact: </strong> {{Contact}}
+    </p>
+    {{/if}}
+    <p>{{Description}}</p>
+    {{#if username}}
+    <div class="col-sm-4">
+        <h3>Comments</h3>
+        <div id="comments"></div>
+        <div class="form-horizontal">
+            <div class="form-group">
+                <textarea class="form-control" id="comment-content" placeholder="Post your comment"></textarea>
+            </div>
+            <button type="submit" class="btn btn-default" id="btn-add-comment">Add comment</button>
+        </div>
+    </div>
+    {{/if}}
+</div>
+

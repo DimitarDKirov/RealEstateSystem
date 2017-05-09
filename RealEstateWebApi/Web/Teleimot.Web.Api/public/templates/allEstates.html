@@ -1,0 +1,16 @@
+﻿{{#each this}}
+<li>
+    <a class="list-group-item" href="#/estate/details/{{Id}}">
+        <h4 class="list-group-item-heading">{{Title}}</h4>
+        <p class="list-group-item-text row">
+            {{#if CanBeSold}} <span class="col-sm-2">
+                Sell:   <strong>{{SellingPrice}} &euro;</strong>
+            </span>
+            {{/if}}
+            {{#if CanBeRented}} <span class="col-sm-2">
+                Rent: <strong>{{RentingPrice}} &euro;</strong>
+            </span>{{/if}}
+        </p>
+    </a>
+</li>
+{{/each}}

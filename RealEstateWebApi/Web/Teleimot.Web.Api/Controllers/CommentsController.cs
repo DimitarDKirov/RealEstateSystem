@@ -11,6 +11,7 @@
     using Microsoft.AspNet.Identity;
     using Models.Comments;
     using Services.Data.Contracts;
+    using System;
 
     [Authorize]
     public class CommentsController : ApiController
@@ -21,7 +22,7 @@
         {
             this.comments = comments;
         }
-        
+
         [ValidateTake]
         public IHttpActionResult Get(
             int id,
@@ -35,12 +36,20 @@
 
             return this.Ok(result);
         }
-        
+
         [ValidateModel]
         public IHttpActionResult Post(CommentRequestModel model)
         {
             var newComment = Mapper.Map<Comment>(model);
-            var id = this.comments.AddNew(newComment, this.User.Identity.GetUserId());
+            int id;
+            try
+            {
+                id = this.comments.AddNew(newComment, this.User.Identity.GetUserId());
+            }
+            catch (Exception ex)
+            {
+                return this.BadRequest(ex.Message);
+            }
 
             var result = this.comments
                 .GetById(id)
@@ -49,7 +58,7 @@
 
             return this.Created($"/api/Comments/{id}", result);
         }
-        
+
         [HttpGet]
         [Route("api/Comments/ByUser/{id}")]
         [ValidateTake]

@@ -1,11 +1,10 @@
-//const HTTP_HEADER_KEY = "x-auth-key";
 import {httpRequest as request} from 'httpRequester';
 
 let realEstateTypes;
 
 let data = {
-    realEstates() {
-        return request.getJSON('api/realestates/', getAuthHeader());
+    realEstates(page) {
+        return request.getJSON('api/realestates/?skip='+page, getAuthHeader());
     },
     realEstateTypes(){
         if(typeof realEstateTypes ==='undefined'){
