@@ -260,6 +260,8 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="index.html" />
+    <Content Include="public\scripts\classes\Comment.js" />
+    <Content Include="public\scripts\classes\RealEstate.js" />
     <Content Include="public\scripts\app.js" />
     <Content Include="public\scripts\controller.js" />
     <Content Include="public\scripts\data.js" />
@@ -277,6 +279,7 @@
     <Content Include="public\templates\home.html" />
     <Content Include="public\templates\userRegistration.html" />
     <Content Include="public\templates\userLogin.html" />
+    <Content Include="public\tests\index.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -284,9 +287,6 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="public\templates\profile.handlebars" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

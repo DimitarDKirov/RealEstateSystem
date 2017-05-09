@@ -16,6 +16,8 @@
         'templateLoader': './public/scripts/templateLoader.js',
         'httpRequester': './public/scripts/httpRequest.js',
         'data': './public/scripts/data.js',
+        'realestate': './public/scripts/classes/RealEstate.js',
+        'comment': './public/scripts/classes/Comment.js',
         // app start script
         'app': './public/scripts/app.js'
     }
