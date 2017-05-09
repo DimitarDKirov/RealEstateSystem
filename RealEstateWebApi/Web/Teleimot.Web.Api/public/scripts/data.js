@@ -1,39 +1,44 @@
-import { httpRequest as request } from 'httpRequester';
-
-let realEstateTypes;
-
-let data = {
-    realEstates(page) {
+//import { httpRequest as request } from 'httpRequester';
+var data = (function (request) {
+    let cachedRealEstateTypes;
+       
+    function realEstates(page) {
         return request.getJSON('api/realestates/?skip=' + page, getAuthHeader());
-    },
-    realEstateTypes() {
-        if (typeof realEstateTypes === 'undefined') {
+    }
+
+    function realEstateTypes() {
+        if (typeof cachedRealEstateTypes === 'undefined') {
             return request.getJSON('api/realestatetypes/getall')
                 .then(types => {
-                    realEstateTypes = types;
+                    cachedRealEstateTypes = types;
                     return types;
                 });
         } else {
-            return Promise.resolve(realEstateTypes);
+            return Promise.resolve(cachedRealEstateTypes);
         }
-    },
-    getEstateById(id) {
+    }
+
+    function getRealEstateById(id) {
         let options = getAuthHeader();
         return request.getJSON('api/realestates/' + id, options);
-    },
-    addEstate(estateOffer) {
+    }
+
+    function addRealEstate(estateOffer) {
         let options = getAuthHeader();
         return request.postJSON('api/realestates', estateOffer, options);
-    },
-    getCommentsByEstateId(realEstateId) {
-        let options = getAuthHeader();
-        return request.getJSON('api/comments/' + realEstateId, options);
-    },
-    addCommnet(comment) {
+    }
+
+    //getCommentsByEstateId(realEstateId) {
+    //    let options = getAuthHeader();
+    //    return request.getJSON('api/comments/' + realEstateId, options);
+    //},
+
+    function addCommnet(comment) {
         let options = getAuthHeader();
         return request.postJSON('api/comments', comment, options);
-    },
-    login(userData) {
+    }
+
+    function login(userData) {
         userData.grant_type = 'password';
         var result = request.postAuth('token', userData)
             .then(userDetails => {
@@ -45,30 +50,50 @@ let data = {
             });
 
         return result;
-    },
-    register(userData) {
+    }
+    function register(userData) {
         return request.postAuth('api/account/register', userData);
-    },
-    loggedInUsername() {
+    }
+
+    function loggedInUsername() {
         return Promise.resolve()
             .then(() => {
                 return localStorage.getItem("username");
             });
-    },
-    logout() {
+    }
+
+    function logout() {
         let header = getAuthHeader();
         localStorage.removeItem("username");
         localStorage.removeItem("token");
         return request.postJSON('api/account/logout', {}, header);
     }
-};
 
-function getAuthHeader() {
-    return {
-        headers: {
-            Authorization: 'Bearer ' + localStorage.getItem('token')
+    function getAuthHeader() {
+        return {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+            }
+        };
+    }
+
+    return{
+        realEstates:{
+            realEstates,
+            realEstateTypes,
+            getRealEstateById,
+            addRealEstate
+        },
+        comments:{
+            addCommnet
+        },
+        users:{
+            login,
+            register,
+            loggedInUsername,
+            logout
         }
-    };
-}
+    }
+}(httpRequester));
 
-export { data };
+//export { data };

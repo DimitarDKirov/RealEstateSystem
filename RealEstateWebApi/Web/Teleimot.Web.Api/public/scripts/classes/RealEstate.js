@@ -1,6 +1,6 @@
-﻿import { Comment } from 'comment';
+﻿//import { Comment } from 'comment';
 
-export class RealEstate {
+class RealEstate {
     constructor(model) {
         this.id = model.Id;
         this.title = model.Title;

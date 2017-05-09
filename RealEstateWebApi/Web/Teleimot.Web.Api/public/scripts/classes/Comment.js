@@ -1,4 +1,4 @@
-﻿export class Comment {
+﻿class Comment {
     constructor(model) {
         this.content = model.Content;
         this.username = model.UserName;

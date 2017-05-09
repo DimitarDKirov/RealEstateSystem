@@ -1,20 +1,21 @@
-import { data } from 'data';
-import { loadTemplate } from 'templateLoader';
-import { RealEstate } from 'realestate';
-import { Comment } from 'comment';
+//import { data } from 'data';
+//import { loadTemplate } from 'templateLoader';
+//import { RealEstate } from 'realestate';
+//import { Comment } from 'comment';
 
-let controller = {
-    home() {
-        loadTemplate('home')
+var controller = (function (data, templateLoader, RealEstate, Comment) {
+    function home() {
+        templateLoader.loadTemplate('home')
             .then(template => {
                 var html = template();
                 $('#content').html(html);
             })
             .catch(console.log);
-    },
-    allEstates() {
+    }
+
+    function allEstates() {
         var templateOffers;
-        loadTemplate('allEstatesCommon')
+        templateLoader.loadTemplate('allEstatesCommon')
             .then(template => {
                 var html = template();
                 $('#content').html(html);
@@ -26,20 +27,21 @@ let controller = {
                     return false;
                 });
 
-                return loadTemplate('allEstates');
+                return templateLoader.loadTemplate('allEstates');
             })
             .then(template => {
                 templateOffers = template;
                 return loadNextEstates(template);
             })
             .catch(console.log);
-    },
-    addEstate() {
+    }
+
+    function addEstate() {
         let realEstateTypes;
-        data.realEstateTypes()
+        data.realEstates.realEstateTypes()
             .then(types => {
                 realEstateTypes = types;
-                return loadTemplate('addEstate');
+                return templateLoader.loadTemplate('addEstate');
             })
             .then(template => {
                 var html = template(realEstateTypes);
@@ -57,7 +59,7 @@ let controller = {
                         type: $('#sel-type').val()
                     };
 
-                    data.addEstate(estateOffer)
+                    data.realEstates.addRealEstate(estateOffer)
                         .then(window.router.navigate('/'))
                         .catch(error => {
                             console.log(error);
@@ -69,14 +71,15 @@ let controller = {
                 });
             })
             .catch(console.log);
-    },
-    getEstateById(id) {
+    }
+
+    function getEstateById(id) {
         let realEstateDetails;
         let commentsTemplate;
-        data.getEstateById(id)
+        data.realEstates.getRealEstateById(id)
             .then(details => {
                 realEstateDetails = new RealEstate(details);
-                return loadTemplate('estateDetails');
+                return templateLoader.loadTemplate('estateDetails');
             })
             .then(template => {
                 let html = template(realEstateDetails);
@@ -88,7 +91,7 @@ let controller = {
                         content: $('#comment-content').val()
                     };
 
-                    data.addCommnet(comment)
+                    data.comments.addCommnet(comment)
                         .then(newComment => {
                             let comment = new Comment(newComment);
                             let html = commentsTemplate([comment]);
@@ -103,7 +106,7 @@ let controller = {
                     return false;
                 });
 
-                return loadTemplate('comments');
+                return templateLoader.loadTemplate('comments');
             })
             .then(template => {
                 commentsTemplate = template;
@@ -114,13 +117,14 @@ let controller = {
                 console.log(error);
                 toastr.error(error.responseJSON.Message);
             });
-    },
+    }
+
     //commentsByEstateId(realEstateId){
     //    var comments;
     //    data.getCommentsByEstateId(realEstateId)
     //    .then(com=>{
     //        comments=com;
-    //        return loadTemplate('commentsSection')
+    //        return templateLoader.loadTemplate('commentsSection')
     //    })
     //    .then(template=>{
     //        var html=template();
@@ -144,7 +148,7 @@ let controller = {
     //            return false;
     //        });
 
-    //        return loadTemplate('comments');
+    //        return templateLoader.loadTemplate('comments');
     //    })
     //    .then(template=>{
     //        var html=template(comments);
@@ -152,8 +156,9 @@ let controller = {
     //    })
     //    .catch(console.log);
     //},
-    login() {
-        loadTemplate('userLogin')
+
+    function login() {
+        templateLoader.loadTemplate('userLogin')
             .then((template) => {
                 var html = template();
                 $('#content').html(html);
@@ -164,7 +169,7 @@ let controller = {
                         password: $('#tb-password').val()
                     };
 
-                    data.login(userData)
+                    data.users.login(userData)
                         .then((userDetails) => {
                             userLoggedIn();
                             window.router.navigate('/');
@@ -177,9 +182,10 @@ let controller = {
                     return false;
                 });
             });
-    },
-    register() {
-        loadTemplate('userRegistration')
+    }
+
+    function register() {
+        templateLoader.loadTemplate('userRegistration')
             .then((template) => {
                 var html = template();
                 $('#content').html(html);
@@ -191,9 +197,9 @@ let controller = {
                         password: $('#tb-password').val()
                     };
 
-                    data.register(userData)
+                    data.users.register(userData)
                         .then(() => {
-                            return data.login(userData);
+                            return data.users.login(userData);
                         })
                         .then((userDetails) => {
                             userLoggedIn();
@@ -210,38 +216,50 @@ let controller = {
                     return false;
                 });
             });
-    },
-    logout() {
-        data.logout();
+    }
+
+    function logout() {
+        data.users.logout();
         $('.visible-loggedout').show();
         $('.visible-loggedin').hide();
         window.router.navigate('/');
     }
-};
 
-function userLoggedIn() {
-    $('.visible-loggedout').hide();
-    $('.visible-loggedin').show();
-    data.loggedInUsername()
-        .then(username => {
-            $('#logged-user')
-                .text(username)
-                .attr("href", "#/users/" + username);
-        });
-}
+    function userLoggedIn() {
+        $('.visible-loggedout').hide();
+        $('.visible-loggedin').show();
+        data.users.loggedInUsername()
+            .then(username => {
+                $('#logged-user')
+                    .text(username)
+                    .attr("href", "#/users/" + username);
+            });
+    }
 
-function loadNextEstates(template) {
-    let $offersContainer = $('#offers');
-    let page = $offersContainer.attr('page-number') | 0;
-    return data.realEstates(page * 10)
-        .then(estates => {
-            var html = template(estates);
-            $('#offers').append(html);
-            $offersContainer.attr('page-number', page + 1);
-            if (estates.length < 10) {
-                $('#btn-more').hide();
-            }
-        });
-}
+    function loadNextEstates(template) {
+        let $offersContainer = $('#offers');
+        let page = $offersContainer.attr('page-number') | 0;
+        return data.realEstates.realEstates(page * 10)
+            .then(estates => {
+                var html = template(estates);
+                $('#offers').append(html);
+                $offersContainer.attr('page-number', page + 1);
+                if (estates.length < 10) {
+                    $('#btn-more').hide();
+                }
+            });
+    }
 
-export { controller };
+    return {
+        home,
+        allEstates,
+        addEstate,
+        getEstateById,
+        login,
+        register,
+        logout,
+        userLoggedIn
+    }
+}(data, templateLoader, RealEstate, Comment));
+
+//export { controller };
