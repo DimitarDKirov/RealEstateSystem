@@ -23,3 +23,6 @@ http://realestatessystem.apphb.com/#/home
 Video demo at:
 
 https://youtu.be/zGix4YH_Pxw
+
+
+http://best.telerikacademy.com/projects/661/Real-Estates-System
