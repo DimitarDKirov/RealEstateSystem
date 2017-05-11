@@ -266,6 +266,7 @@
     <Content Include="public\scripts\controller.js" />
     <Content Include="public\scripts\data.js" />
     <Content Include="public\scripts\httpRequest.js" />
+    <Content Include="public\scripts\navigo.min.js" />
     <Content Include="public\scripts\system-config.js" />
     <Content Include="public\scripts\templateLoader.js" />
     <Content Include="public\scripts\userCredentialsValidator.js" />

@@ -1,7 +1,18 @@
-body .visible-loggedin {
-    display: none;
+body {
+    background-image: url('../pictures/background.jpeg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
 }
+
+    body .visible-loggedin {
+        display: none;
+    }
 
 .form-horizontal {
     margin: 1%;
+}
+
+.center {
+    text-align: center;
 }

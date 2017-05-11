@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Real estate offers</title>
-    <link rel="stylesheet" href="/public/node_modules/bootstrap/dist/css/bootstrap.css">
+    <!--<link rel="stylesheet" href="/public/node_modules/bootstrap/dist/css/bootstrap.css">-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="/public/styles/main.css">
-    <link rel="stylesheet" href="/public/node_modules/toastr/build/toastr.css">
+    <!--<link rel="stylesheet" href="/public/node_modules/toastr/build/toastr.css">-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css" integrity="sha256-xykLhwtLN4WyS7cpam2yiUOwr709tvF3N/r7+gOMxJw=" crossorigin="anonymous" />
 </head>
 <body>
     <!-- Load Facebook SDK for JavaScript -->
@@ -21,7 +23,7 @@
 
     <nav class="navbar navbar-default">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">Real estates</a>
+            <a class="navbar-brand" href="#/">Real estates</a>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li><a href="#/estates">All offers</a></li>
@@ -38,11 +40,18 @@
     </nav>
     <div id="content"></div>
 
-    <script type="text/javascript" src="/public/node_modules/jquery/dist/jquery.js"></script>
-    <script type="text/javascript" src="/public/node_modules/bootstrap/dist/js/bootstrap.js"></script>
-    <script type="text/javascript" src="/public/node_modules/toastr/toastr.js"></script>
-    <script type="text/javascript" src="/public/node_modules/handlebars/dist/handlebars.js"></script>
-    <script type="text/javascript" src="/public/node_modules/navigo/lib/navigo.js"></script>
+    <!--<script type="text/javascript" src="/public/node_modules/jquery/dist/jquery.js"></script>-->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
+    <!--<script type="text/javascript" src="/public/node_modules/bootstrap/dist/js/bootstrap.js"></script>-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!--<script type="text/javascript" src="/public/node_modules/toastr/toastr.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js" integrity="sha256-3blsJd4Hli/7wCQ+bmgXfOdK7p/ZUMtPXY08jmxSSgk=" crossorigin="anonymous"></script>
+    <!--<script type="text/javascript" src="/public/node_modules/handlebars/dist/handlebars.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.8/handlebars.min.js" integrity="sha256-4d88O9e7pCb/y6LHNiCfPQAutcLvYzg+TdjCYR5bMr0=" crossorigin="anonymous"></script>
+    <!--<script type="text/javascript" src="/public/node_modules/navigo/lib/navigo.js"></script>-->
+    <script type="text/javascript" src="/public/scripts/navigo.min.js"></script>
     <script type="text/javascript" src="/public/scripts/classes/Comment.js"></script>
     <script type="text/javascript" src="/public/scripts/classes/RealEstate.js"></script>
     <script type="text/javascript" src="/public/scripts/httpRequest.js"></script>
