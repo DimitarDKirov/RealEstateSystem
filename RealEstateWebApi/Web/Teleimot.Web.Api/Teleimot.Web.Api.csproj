@@ -260,6 +260,7 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="index.html" />
+    <Content Include="public\pictures\background.jpeg" />
     <Content Include="public\scripts\classes\Comment.js" />
     <Content Include="public\scripts\classes\RealEstate.js" />
     <Content Include="public\scripts\app.js" />
