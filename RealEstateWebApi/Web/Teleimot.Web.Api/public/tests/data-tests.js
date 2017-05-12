@@ -1,4 +1,4 @@
-﻿(function(){
+﻿(function () {
     describe('Data layer tests', () => {
         const TEST_USERNAME = 'TEST-USERNAME',
            TEST_TOKEN = 'VERY-SECRET-TOKEN';
@@ -36,7 +36,7 @@
                 });
 
                 it('Excpect realestates to make a request to correct URL', (done) => {
-                    let page=1;
+                    let page = 1;
                     let expectedUrl = 'api/realestates/?skip=1';
                     requesterGetStub.returns(Promise.resolve({}));
 
@@ -75,10 +75,23 @@
                     requesterGetStub.restore();
                 });
 
-                it('realEstateTypes should make a GET request', (done) => {
+                //it('realEstateTypes should make a GET request', (done) => {
+                //    requesterGetStub.returns(Promise.resolve({}));
+
+                //    data.realEstates.realEstateTypes()
+                //    .then(() => {
+                //        expect(requesterGetStub).to.have.been.calledOnce;
+                //    })
+                //     .then(done, done);
+                //});
+
+                it('realEstateTypes should make a GET request only once for two requests', (done) => {
                     requesterGetStub.returns(Promise.resolve({}));
 
                     data.realEstates.realEstateTypes()
+                     .then(() => {
+                         return data.realEstates.realEstateTypes();
+                     })
                     .then(() => {
                         expect(requesterGetStub).to.have.been.calledOnce;
                     })

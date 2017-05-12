@@ -1,27 +1,31 @@
 ﻿<div class="col-sm-offset-1 col-sm-4">
     <h3>{{title}}</h3>
-    <p><strong>Added: </strong>{{createdOn}}</p>
-    <p>
-        <strong>Type: </strong> {{type}}
-    </p>
-    <p>
-        <strong>Built: </strong> {{constructionYear}}
-    </p>
-    <p><strong>Address: </strong>{{address}}</p>
+    <ul>
+        <li><strong>Added: </strong>{{createdOn}}</li>
+        <li>
+            <strong>Type: </strong> {{type}}
+        </li>
+        <li>
+            <strong>Built: </strong> {{constructionYear}}
+        </li>
+        <li><strong>Address: </strong>{{address}}</li>
 
-    {{#if canBeSold}} <p>
-        Sell:   <strong>{{sellingPrice}} &euro;</strong>
-    </p>
-    {{/if}}
-    {{#if canBeRented}} <p>
-        Rent: <strong>{{rentingPrice}} &euro;</strong>
-    </p>{{/if}}
+        {{#if canBeSold}}
+        <li>
+            Sell:   <strong>{{sellingPrice}} &euro;</strong>
+        </li>
+        {{/if}}
+        {{#if canBeRented}}
+        <li>
+            Rent: <strong>{{rentingPrice}} &euro;</strong>
+        </li>{{/if}}
 
-    {{#if contact}}
-    <p>
-        <strong>Contact: </strong> {{contact}}
-    </p>
-    {{/if}}
+        {{#if contact}}
+        <li>
+            <strong>Contact: </strong> {{contact}}
+        </li>
+        {{/if}}
+    </ul>
     <div class="panel panel-default">
         <div class="panel-heading">Details on this offer</div>
         <div class="panel-body">{{description}}</div>
@@ -40,6 +44,6 @@
     </div>
     {{/if}}
 
-    <div class="fb-like" data-href="http://realestatessystem.apphb.com/#/estate/details/{{Id}}" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+    <div class="fb-like" data-href="http://realestatessystem.apphb.com/#/estate/details/{{id}}" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
 </div>
 
